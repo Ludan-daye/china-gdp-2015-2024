@@ -1,0 +1,9 @@
+pandas>=2.0
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
+geopandas>=0.14
+shapely>=2.0
+requests>=2.31
+squarify>=0.4
+openpyxl>=3.1

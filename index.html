@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从工业驱动到服务驱动 · 中国经济的十年产业转型 (2015-2024)</title>
+<meta name="description" content="2015-2024 中国 GDP 与产业结构可视化分析：14 张静态图表讲述经济结构转型的故事。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #F3EEE0;
+    --bg-deep: #EAE3D0;
+    --paper-line: rgba(30, 30, 30, 0.09);
+    --ink: #1B1B1B;
+    --ink-soft: #3A3A3A;
+    --muted: #76695A;
+    --rule: rgba(30, 30, 30, 0.18);
+    --rule-strong: #1B1B1B;
+
+    --primary: #7A8B5E;       /* 第一产业 · 低饱和绿 */
+    --secondary: #3A6FA0;     /* 第二产业 · 雾蓝 */
+    --tertiary: #E07B39;      /* 第三产业 · 暖橙 · 主高亮 */
+    --highlight: #B2322A;     /* 强调红 */
+    --gold: #B08036;
+
+    --serif: "Noto Serif SC", "Songti SC", "Source Han Serif CN", "STSong", serif;
+    --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono: "JetBrains Mono", "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
+    --display-en: "Cormorant Garamond", "Noto Serif SC", serif;
+
+    --measure: 36rem;
+    --wide: 58rem;
+    --fullbleed: 74rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--bg);
+    background-image:
+        repeating-linear-gradient(0deg, var(--paper-line) 0 1px, transparent 1px 26px);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.72;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* === 阅读进度条 === */
+#progress {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 3px;
+    background: var(--tertiary);
+    z-index: 100;
+    transition: width 40ms linear;
+}
+
+/* === 顶栏 === */
+.topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(243, 238, 224, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+}
+.topbar-inner {
+    max-width: var(--fullbleed); margin: 0 auto;
+    padding: 14px 28px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 20px;
+}
+.brand {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15px; letter-spacing: 0.03em;
+}
+.brand::before {
+    content: "";
+    display: inline-block;
+    width: 9px; height: 9px;
+    background: var(--tertiary);
+    margin-right: 10px;
+    transform: translateY(-1px);
+}
+.topbar nav {
+    display: flex; gap: 22px;
+    font-size: 12.5px; letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.topbar nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--mono); font-weight: 400;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+.topbar nav a:hover, .topbar nav a.active {
+    color: var(--ink);
+    border-bottom-color: var(--tertiary);
+}
+
+/* === HERO === */
+.hero {
+    max-width: var(--fullbleed);
+    margin: 0 auto;
+    padding: 110px 28px 100px;
+    position: relative;
+}
+.kicker {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--highlight);
+    margin-bottom: 44px;
+}
+.kicker::before {
+    content: ""; width: 28px; height: 2px; background: var(--highlight);
+}
+.hero h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(48px, 8.5vw, 104px);
+    line-height: 1.03;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 16px;
+}
+.hero h1 em {
+    font-style: normal;
+    color: var(--tertiary);
+    position: relative;
+}
+.hero h1 em::after {
+    content: "";
+    position: absolute; bottom: 6px; left: 0; right: 0;
+    height: 14px;
+    background: rgba(224, 123, 57, 0.16);
+    z-index: -1;
+}
+.hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.1vw, 28px);
+    font-weight: 400;
+    color: var(--ink-soft);
+    max-width: 42rem;
+    margin-bottom: 60px;
+    line-height: 1.45;
+}
+.hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px 40px;
+    padding-top: 26px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 12.5px;
+}
+.hero-meta dt {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 10.5px;
+    margin-bottom: 8px;
+}
+.hero-meta dd {
+    color: var(--ink);
+    font-size: 14.5px;
+    font-weight: 500;
+}
+
+/* 开篇大数对 */
+.hero-figures {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 80px 0 0;
+    padding-top: 48px;
+    border-top: 2px solid var(--rule-strong);
+}
+.figure-cell {
+    padding: 0 32px;
+    border-right: 1px dashed var(--rule);
+}
+.figure-cell:last-child { border-right: none; }
+.figure-cell:first-child { padding-left: 0; }
+.figure-cell:last-child { padding-right: 0; }
+.figure-num {
+    font-family: var(--display-en);
+    font-weight: 500;
+    font-size: clamp(60px, 6.5vw, 100px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    display: block;
+}
+.figure-num .arrow {
+    color: var(--tertiary);
+    padding: 0 8px;
+    font-style: italic;
+    font-weight: 400;
+}
+.figure-unit {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+}
+.figure-label {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    font-weight: 500;
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+}
+
+/* === 导言 === */
+.prologue {
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: 100px 28px 80px;
+    border-top: 1px solid var(--rule);
+}
+.prologue-layout {
+    display: grid;
+    grid-template-columns: 1fr 2.1fr;
+    gap: 64px;
+    align-items: start;
+}
+.prologue-head {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--highlight);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    position: sticky; top: 100px;
+}
+.prologue-head::before {
+    content: "00";
+    display: block;
+    font-family: var(--display-en);
+    font-weight: 400;
+    font-size: 90px;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+.prologue p {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 22px;
+}
+.prologue p:first-of-type::first-letter {
+    font-family: var(--display-en);
+    font-weight: 500;
+    font-size: 5.4em;
+    float: left;
+    line-height: 0.85;
+    padding-right: 12px;
+    padding-top: 6px;
+    color: var(--tertiary);
+}
+.prologue .byline {
+    margin-top: 40px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+}
+
+/* === 章节 === */
+.chapter {
+    max-width: var(--fullbleed);
+    margin: 0 auto;
+    padding: 80px 28px 60px;
+}
+.chapter-head {
+    max-width: var(--wide);
+    margin: 0 auto 80px;
+    padding-top: 60px;
+    border-top: 3px solid var(--ink);
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+    align-items: end;
+}
+.chapter-no {
+    font-family: var(--display-en);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 120px;
+    line-height: 0.82;
+    color: var(--tertiary);
+    letter-spacing: -0.04em;
+}
+.chapter-no small {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-style: normal;
+    font-family: var(--mono);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.chapter-title {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+.chapter-lede {
+    max-width: var(--measure);
+    margin: 0 auto 64px;
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.72;
+    color: var(--ink-soft);
+}
+.chapter-lede strong {
+    color: var(--ink);
+    background: rgba(224, 123, 57, 0.14);
+    padding: 0 4px;
+    font-weight: 500;
+}
+
+/* === 图表展示区 === */
+.viz {
+    margin: 72px auto;
+    max-width: var(--fullbleed);
+}
+.viz-hero {
+    max-width: var(--fullbleed);
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 36px 44px 32px;
+    box-shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+.viz-hero::before {
+    content: "HERO";
+    position: absolute; top: 16px; right: 20px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.25em; color: var(--tertiary);
+    font-weight: 700;
+}
+.viz-copy {
+    max-width: var(--measure);
+    margin: 0 auto 28px;
+}
+.viz-kicker {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tertiary);
+    margin-bottom: 14px;
+    padding: 3px 10px;
+    border: 1px solid var(--tertiary);
+    border-radius: 2px;
+}
+.viz-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(26px, 2.6vw, 34px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 14px;
+}
+.viz-sub {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-weight: 400;
+    font-style: italic;
+}
+.viz img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 8px auto;
+}
+.viz-hint {
+    max-width: var(--measure);
+    margin: 28px auto 0;
+    padding: 18px 22px;
+    border-left: 3px solid var(--tertiary);
+    background: rgba(224, 123, 57, 0.06);
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+}
+.viz-hint strong {
+    color: var(--highlight);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+.viz-foot {
+    max-width: var(--wide);
+    margin: 10px auto 0;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px dashed var(--rule);
+}
+
+/* 普通 viz 无 hero 边框 */
+.viz:not(.viz-hero) .viz-copy {
+    margin-bottom: 16px;
+}
+.viz:not(.viz-hero) img {
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+}
+
+/* 拉出引述 / takeaway */
+.pullquote {
+    max-width: var(--wide);
+    margin: 90px auto;
+    padding: 44px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+}
+.pullquote q {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.3;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    font-style: italic;
+    quotes: "「" "」";
+}
+.pullquote q::before { color: var(--tertiary); }
+.pullquote q::after { color: var(--tertiary); }
+.pullquote .attribution {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.pullquote .attribution::before {
+    content: ""; display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--muted);
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+/* 数据行 (inline stats) */
+.data-strip {
+    max-width: var(--wide);
+    margin: 48px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+}
+.data-strip > div {
+    padding: 24px 20px;
+    border-right: 1px solid var(--rule);
+}
+.data-strip > div:last-child { border-right: none; }
+.data-strip .num {
+    font-family: var(--display-en);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+.data-strip .num.pos { color: var(--tertiary); }
+.data-strip .num.neg { color: var(--secondary); }
+.data-strip .lab {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* 两列叙事 */
+.two-col {
+    max-width: var(--wide);
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    padding: 0 28px;
+}
+.two-col p {
+    font-family: var(--serif);
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: var(--ink);
+}
+.two-col p + p { margin-top: 16px; }
+
+/* === 结语 === */
+.coda {
+    background: var(--bg-deep);
+    padding: 120px 28px 100px;
+    margin-top: 120px;
+    border-top: 3px solid var(--ink);
+}
+.coda-inner {
+    max-width: var(--wide);
+    margin: 0 auto;
+}
+.coda .kicker { color: var(--ink); }
+.coda .kicker::before { background: var(--ink); }
+.coda h2 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 36px;
+}
+.takeaways {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 60px;
+    margin-top: 40px;
+}
+.takeaway {
+    padding: 28px 0 0;
+    border-top: 2px solid var(--ink);
+}
+.takeaway .num {
+    font-family: var(--display-en);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--tertiary);
+    margin-bottom: 10px;
+}
+.takeaway h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+.takeaway p {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+}
+
+/* === 方法论 === */
+.colophon {
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: 80px 28px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 48px;
+}
+.colophon h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+.colophon-head {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    position: sticky; top: 100px;
+}
+.colophon dl {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px 24px;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.65;
+}
+.colophon dt {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding-top: 2px;
+}
+.colophon dd {
+    color: var(--ink-soft);
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--rule);
+}
+.colophon dd code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--secondary);
+}
+.colophon dd a {
+    color: var(--tertiary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tertiary);
+    transition: opacity 0.2s;
+}
+.colophon dd a:hover { opacity: 0.7; }
+
+/* === Footer === */
+footer {
+    max-width: var(--fullbleed);
+    margin: 0 auto;
+    padding: 60px 28px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+}
+footer .sig {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 13px;
+}
+
+/* 标题-章节锚点对齐 */
+.chapter, .prologue, .coda, .colophon { scroll-margin-top: 68px; }
+
+/* 小屏响应 */
+@media (max-width: 800px) {
+    body { font-size: 16px; }
+    .topbar-inner { padding: 12px 18px; }
+    .topbar nav { gap: 14px; font-size: 11px; }
+    .hero { padding: 70px 20px 60px; }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); gap: 20px 24px; }
+    .hero-figures { grid-template-columns: 1fr; gap: 24px; }
+    .figure-cell { padding: 18px 0; border-right: none; border-bottom: 1px dashed var(--rule); }
+    .prologue-layout, .colophon, .chapter-head { grid-template-columns: 1fr; gap: 24px; }
+    .chapter-head { padding-top: 30px; }
+    .chapter-no { font-size: 76px; }
+    .data-strip { grid-template-columns: repeat(2, 1fr); }
+    .data-strip > div:nth-child(2) { border-right: none; }
+    .data-strip > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .two-col { grid-template-columns: 1fr; gap: 24px; }
+    .takeaways { grid-template-columns: 1fr; }
+    .viz-hero { padding: 20px 16px; }
+    .chapter { padding: 40px 18px; }
+    .coda { padding: 70px 18px 60px; }
+}
+
+/* === 登场动画（纯 CSS） === */
+@keyframes rise {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hero .kicker { animation: rise 0.7s 0.1s ease-out both; }
+.hero h1 { animation: rise 0.9s 0.2s ease-out both; }
+.hero-sub { animation: rise 0.8s 0.45s ease-out both; }
+.hero-meta { animation: rise 0.8s 0.65s ease-out both; }
+.hero-figures { animation: rise 0.8s 0.85s ease-out both; }
+
+/* scroll-in reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="brand">工业 → 服务 · 中国经济的十年</div>
+        <nav>
+            <a href="#prologue">导言</a>
+            <a href="#task1">Ch.1 趋势</a>
+            <a href="#task2">Ch.2 区域</a>
+            <a href="#task3">Ch.3 相关</a>
+            <a href="#coda">结语</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+    <span class="kicker">期末项目 · 数据可视化 · 2026</span>
+    <h1>从工业驱动<br>走向<em>服务驱动</em></h1>
+    <p class="hero-sub">
+        以 2015–2024 十年数据为镜，讲述中国经济规模翻倍、产业结构换骨、区域格局重塑的故事——
+        一部用 14 张静态图表写成的结构转型备忘录。
+    </p>
+
+    <dl class="hero-meta">
+        <div><dt>时段</dt><dd>2015 — 2024</dd></div>
+        <div><dt>样本</dt><dd>31 省 · 全国</dd></div>
+        <div><dt>叙事</dt><dd>结构转型 A 线</dd></div>
+        <div><dt>数据源</dt><dd>国家统计局</dd></div>
+    </dl>
+
+    <div class="hero-figures">
+        <div class="figure-cell">
+            <span class="figure-num">70.3<span class="arrow">→</span>134.8</span>
+            <div class="figure-unit">trillion yuan · 万亿元</div>
+            <div class="figure-label">全国 GDP 总量 · 十年翻倍</div>
+        </div>
+        <div class="figure-cell">
+            <span class="figure-num">51.7<span class="arrow">→</span>56.8<small style="font-size:0.45em;font-family:var(--sans);color:var(--muted);margin-left:8px;">%</small></span>
+            <div class="figure-unit">percentage points · 占 GDP 比重</div>
+            <div class="figure-label">第三产业占比 · 服务化加速</div>
+        </div>
+        <div class="figure-cell">
+            <span class="figure-num">+0.79</span>
+            <div class="figure-unit">pearson r · 省际增速</div>
+            <div class="figure-label">31 省增速同步性 · 经济一盘棋</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 导言 ============ -->
+<section class="prologue" id="prologue">
+    <div class="prologue-layout">
+        <div class="prologue-head">导言<br><span style="font-family:var(--sans);font-size:13px;color:var(--muted);letter-spacing:0.02em;text-transform:none;font-weight:400;">prologue</span></div>
+        <div>
+            <p>国内生产总值（GDP）衡量一国经济体量，而产业结构——第一、第二、第三产业的比重——揭示一国经济的成熟度。十年之间，这两组数据共同勾勒了中国经济的形态变化。</p>
+            <p>本项目以 2015–2024 十年为观察窗口，从总量、区域、相关性三条线索切入。贯穿全文的主线是<strong style="background:rgba(224,123,57,0.18);padding:0 4px;color:var(--ink);font-weight:500;">结构转型</strong>：过去十年里，第三产业的份额不断蚕食第二产业，而第一产业几乎停滞。理解这种"换骨"背后的节奏、地理分布与共变关系，是这份报告的全部。</p>
+            <p class="byline">报告共分三章 · 14 张静态图表 · 包含 2 张英雄图（H1 三元图 · H2 结构时钟）</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="chapter" id="task1">
+    <div class="chapter-head">
+        <div class="chapter-no"><small>Chapter · 01</small>I</div>
+        <h2 class="chapter-title">总量在膨胀，结构在换骨。</h2>
+    </div>
+    <p class="chapter-lede">十年之间，全国名义 GDP 从 70 万亿元攀升至 <strong>134.8 万亿元</strong>，规模接近翻一番；与此同时，第三产业的占比从 51.7% 悄然升至 56.8%，第二产业的话语权在让渡。</p>
+
+    <!-- T1.1 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T1.1 · 全国 GDP 走势</span>
+            <h3 class="viz-title">十年翻倍：2015–2024 全国 GDP 走势</h3>
+            <p class="viz-sub">名义 GDP 从 70.3 万亿增至 134.8 万亿，十年间规模接近翻一番。2020 年疫情冲击造成短暂放缓，但次年即反弹。</p>
+        </div>
+        <img src="outputs/task1_national_gdp.png" alt="2015-2024 全国 GDP 总量折线图">
+        <div class="viz-foot"><span>折线图 · Line Chart</span><span>单位：万亿元</span></div>
+    </figure>
+
+    <!-- T1.2 + T1.3 并列 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T1.2 · 三产堆叠面积</span>
+            <h3 class="viz-title">结构换骨：三次产业增加值的十年积累</h3>
+            <p class="viz-sub">暖橙色的第三产业面积从 36.3 万亿长至 76.6 万亿，增量远超第二产业。</p>
+        </div>
+        <img src="outputs/task1_industry_stack.png" alt="三次产业堆叠面积图">
+        <div class="viz-hint"><strong>阅读提示</strong> · 橙色（第三产业）是增量的最大贡献者，蓝色（第二产业）增量位居次席，绿色（第一产业）仅小幅扩张。暖橙的面积即是"服务化"的可视形状。</div>
+    </figure>
+
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T1.3 · 三产占比演化</span>
+            <h3 class="viz-title">服务化加速：第三产业占比从 51.7% 升至 56.8%</h3>
+            <p class="viz-sub">十年间第三产业占比提升 5 个百分点，第二产业退让 3.5 个百分点，第一产业小幅下降。</p>
+        </div>
+        <img src="outputs/task1_industry_share.png" alt="三次产业占比折线图">
+        <div class="viz-foot"><span>折线图 · 占比演化</span><span>占 GDP 比重（%）</span></div>
+    </figure>
+
+    <!-- T1.4 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T1.4 · 年度同比增速</span>
+            <h3 class="viz-title">V 型恢复：名义 GDP 增速在疫情后显著反弹</h3>
+            <p class="viz-sub">2020 年增速跌至 2.9%，2021 年反弹至 13.4%，此后回归中速区间。</p>
+        </div>
+        <img src="outputs/task1_growth_rate.png" alt="年度 GDP 同比增速柱状图">
+        <div class="viz-foot"><span>柱状图 · Bar Chart</span><span>红柱 = 2020 疫情年</span></div>
+    </figure>
+
+    <!-- 拉出引述 -->
+    <blockquote class="pullquote reveal">
+        <q>10 年间，第三产业占 GDP 比重上升 5 个百分点，这是中国经济最清晰的"换骨"信号。</q>
+        <div class="attribution">Chapter 01 · Key Insight</div>
+    </blockquote>
+
+    <!-- H1 英雄图 -->
+    <figure class="viz viz-hero reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker" style="background:var(--tertiary);color:#fff;border-color:var(--tertiary);">H1 · 封面级 HERO 图</span>
+            <h3 class="viz-title">漂向第三产业顶点：31 省十年产业结构轨迹</h3>
+            <p class="viz-sub">灰色 = 全部 31 省轨迹；红色 = 4 个极端代表（京沪服务化、黑龙江一产最高、西藏三产最高）。整体呈现统一的"向第三产业顶点漂移"方向。</p>
+        </div>
+        <img src="outputs/task1_h1_ternary.png" alt="31 省三次产业占比三元图轨迹">
+        <div class="viz-hint"><strong>如何阅读</strong> · 三元图把三产业占比压缩到一个三角形：越靠顶点代表对应产业越主导。每省画一条从 2015 到 2024 的轨迹。<strong>所有 31 条轨迹的共同方向，本身就是一段叙事。</strong></div>
+        <div class="viz-foot"><span>Ternary Plot · 三元图</span><span>2015 → 2024 全样本轨迹</span></div>
+    </figure>
+
+    <div class="data-strip reveal">
+        <div><div class="num">+5.0</div><div class="lab">三产占比提升 · 百分点</div></div>
+        <div><div class="num">−3.5</div><div class="lab">二产占比回落 · 百分点</div></div>
+        <div><div class="num pos">×1.92</div><div class="lab">名义 GDP 十年膨胀倍数</div></div>
+        <div><div class="num">31 / 31</div><div class="lab">三产占比上升的省份数</div></div>
+    </div>
+</section>
+
+<!-- ============ CHAPTER 2 ============ -->
+<section class="chapter" id="task2">
+    <div class="chapter-head">
+        <div class="chapter-no"><small>Chapter · 02</small>II</div>
+        <h2 class="chapter-title">四极稳定，梯队重排。</h2>
+    </div>
+    <p class="chapter-lede">把镜头拉到省级层面：<strong>粤苏鲁浙</strong> 仍然是四极，但四强后的第二梯队排序在变，西部省份的相对增速超过发达地区，结构上的"追赶"与"升级"并行发生。</p>
+
+    <!-- T2.1 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T2.1 · 2024 排名</span>
+            <h3 class="viz-title">四极格局稳固：粤苏鲁浙贡献全国 1/3 GDP</h3>
+            <p class="viz-sub">2024 年广东、江苏双双超 13 万亿，与排末的西藏相差 50 余倍。</p>
+        </div>
+        <img src="outputs/task2_ranking.png" alt="2024 年各省 GDP 水平柱状排名">
+        <div class="viz-foot"><span>水平柱状图</span><span>红色 = 头部四强，蓝色 = 中腰 8 省，灰色 = 其余 19 省</span></div>
+    </figure>
+
+    <!-- T2.2 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T2.2 · 2024 三产占比</span>
+            <h3 class="viz-title">服务化程度光谱：从新疆 47% 到北京 85%</h3>
+            <p class="viz-sub">按第三产业占比升序排列，北京、上海、海南已进入典型服务型经济区间（三产 ≥ 60%）。</p>
+        </div>
+        <img src="outputs/task2_composition.png" alt="2024 年各省三产占比 100% 堆叠条形图">
+        <div class="viz-hint"><strong>阅读提示</strong> · 北京的橙色近占满整条，而新疆条上绿色（一产）最厚——一个光谱的两端，代表了同一时代中国经济的"两面"。</div>
+    </figure>
+
+    <!-- T2.3 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T2.3 · 哑铃对比</span>
+            <h3 class="viz-title">体量膨胀，位次重排：2015 → 2024 各省 GDP 对比</h3>
+            <p class="viz-sub">十年累计增长率最高者为西藏 +160%，头部省份绝对增量远大于尾部；灰点 = 2015，橙点 = 2024。</p>
+        </div>
+        <img src="outputs/task2_dumbbell.png" alt="2015 vs 2024 各省 GDP 哑铃图">
+        <div class="viz-foot"><span>Dumbbell Plot</span><span>十年累计增长率标注于终点右侧</span></div>
+    </figure>
+
+    <!-- T2.4 choropleth -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T2.4 · 分层设色地图</span>
+            <h3 class="viz-title">东南沿海深蓝，西部高原浅淡：2024 年省级 GDP 分布</h3>
+            <p class="viz-sub">颜色越深表示该省 2024 年 GDP 总量越高。粤苏两省独占深蓝，鲁浙川豫紧随其后。</p>
+        </div>
+        <img src="outputs/task2_choropleth.png" alt="2024 年中国省级 GDP 分层设色地图">
+        <div class="viz-foot"><span>Choropleth · 分层设色</span><span>GeoJSON 数据：阿里云 DataV</span></div>
+    </figure>
+
+    <!-- T2.5 小多图 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T2.5 · 地理小多图</span>
+            <h3 class="viz-title">地理小多图：31 省十年 GDP 曲线（按方位排列）</h3>
+            <p class="viz-sub">橙色 = 头部四强（粤苏鲁浙），蓝色 = 其余 27 省。每格右上数字为 2024 年 GDP（万亿元）。</p>
+        </div>
+        <img src="outputs/task2_smallmult.png" alt="31 省 GDP 十年趋势小多图">
+        <div class="viz-hint"><strong>布局说明</strong> · 每格的上下位置大致对应该省的地理方位。当你的视线从东北角的黑龙江（陡缓）一路扫到华南的广东（陡升），相当于一次地理带的经济速写。</div>
+    </figure>
+
+    <!-- 拉出引述 -->
+    <blockquote class="pullquote reveal">
+        <q>头部 4 省合计 34.9%，头部 10 省合计 61.2%——中国的经济版图，是一张明显的"长尾"。</q>
+        <div class="attribution">Chapter 02 · Regional Takeaway</div>
+    </blockquote>
+
+    <!-- H2 结构时钟 -->
+    <figure class="viz viz-hero reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker" style="background:var(--tertiary);color:#fff;border-color:var(--tertiary);">H2 · 封面级 HERO 图</span>
+            <h3 class="viz-title">结构时钟：几乎所有省份都驶过对角线之上</h3>
+            <p class="viz-sub">横轴 2015、纵轴 2024 的第三产业占比；偏离 45° 对角线的距离 = 十年间服务化幅度。点越大，经济体量越大。</p>
+        </div>
+        <img src="outputs/task2_h2_clock.png" alt="省份结构时钟散点图">
+        <div class="viz-hint"><strong>为什么叫"时钟"</strong> · 如果把 2015、2024 想象成钟面的两针，每个省份的点就是这把"结构指针"跑过的角度——<strong>几乎全部 31 省的指针，都朝着服务化的方向转动。</strong></div>
+        <div class="viz-foot"><span>Clock Chart · 结构时钟</span><span>点大小 ∝ 2024 GDP 总量</span></div>
+    </figure>
+</section>
+
+<!-- ============ CHAPTER 3 ============ -->
+<section class="chapter" id="task3">
+    <div class="chapter-head">
+        <div class="chapter-no"><small>Chapter · 03</small>III</div>
+        <h2 class="chapter-title">经济是联动的，也是异质的。</h2>
+    </div>
+    <p class="chapter-lede">最后一章把变量放在一起：省际之间的增速走势几乎完全<strong>同步</strong>；但"服务化"与"增长"之间的关联并不是直接的——<strong>经济可以靠工业化追赶，也可以靠服务化升级</strong>，两者不等价。</p>
+
+    <!-- T3.1 treemap -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T3.1 · 部分-总体 Treemap</span>
+            <h3 class="viz-title">全国 GDP 的省际版图：谁贡献了多少？</h3>
+            <p class="viz-sub">每个矩形面积 = 该省 2024 年 GDP 占全国比重。粤苏两省相加已超全国 1/5。</p>
+        </div>
+        <img src="outputs/task3_parttowhole.png" alt="2024 全国 GDP 省际 Treemap">
+        <div class="viz-foot"><span>Treemap · 部分-总体</span><span>颜色由深到浅 = 排名由高到低</span></div>
+    </figure>
+
+    <!-- T3.2 相关 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T3.2 · 结构 vs 增速</span>
+            <h3 class="viz-title">结构升级 vs 经济增速：两者有关联吗？</h3>
+            <p class="viz-sub">横轴 = 第三产业占比十年变化；纵轴 = GDP 十年累计增长率。点大小 ∝ 2024 GDP 体量。</p>
+        </div>
+        <img src="outputs/task3_corr_structure.png" alt="GDP 增长 vs 三产占比变化散点图">
+        <div class="viz-hint"><strong>反直觉发现</strong> · r = −0.21。西藏 +160% 的增长主要靠基建与工业扩张而非服务化；安徽等中部省份相反：三产占比跳升，但累计增速反而温和。<strong>服务化是升级，但不是快速增长的唯一路径。</strong></div>
+    </figure>
+
+    <!-- T3.3 省际相关热图 -->
+    <figure class="viz reveal">
+        <div class="viz-copy">
+            <span class="viz-kicker">T3.3 · 省际相关热图</span>
+            <h3 class="viz-title">增速的一盘棋：省际年度增速高度同步</h3>
+            <p class="viz-sub">31 省两两 Pearson r 均值 <strong style="color:var(--tertiary);">+0.79</strong>，几乎所有省份对为正相关。验证宏观周期共振显著。</p>
+        </div>
+        <img src="outputs/task3_corr_provinces.png" alt="省际 GDP 增速相关性热图">
+        <div class="viz-foot"><span>Pearson 相关热图</span><span>行列按 2024 GDP 降序</span></div>
+    </figure>
+</section>
+
+<!-- ============ 结语 ============ -->
+<section class="coda" id="coda">
+    <div class="coda-inner">
+        <span class="kicker">结语 · coda</span>
+        <h2>这十年，<br>量变的表皮，质变的里子。</h2>
+
+        <p style="font-family:var(--serif);font-size:20px;line-height:1.7;color:var(--ink);max-width:36rem;margin-top:28px;">
+            翻倍的 GDP 是表象，真正的故事藏在结构里——第三产业攻城略地，东部 4 省格局稳固，西部省份以工业化方式追赶。
+        </p>
+
+        <div class="takeaways">
+            <div class="takeaway">
+                <div class="num">01</div>
+                <h3>总量翻倍，但增速在换挡</h3>
+                <p>十年名义 GDP 从 70 万亿到 134.8 万亿，接近翻一番。2020 年疫情短暂拐点后，增速从高速切换至中速区间，2024 年为 4.2%。</p>
+            </div>
+            <div class="takeaway">
+                <div class="num">02</div>
+                <h3>服务化是时代主旋律</h3>
+                <p>31 省全部向第三产业顶点漂移。北京三产占比 85%、上海 79%，已进入典型服务型经济区间。</p>
+            </div>
+            <div class="takeaway">
+                <div class="num">03</div>
+                <h3>四极稳固，但梯队在重排</h3>
+                <p>粤苏鲁浙仍是中国经济的"四极"，合计 34.9%。西部省份累计增速更快，山西则是唯一 2024 较 2023 小幅收缩的省份。</p>
+            </div>
+            <div class="takeaway">
+                <div class="num">04</div>
+                <h3>增速同步，路径却分岔</h3>
+                <p>省际增速 r = +0.79 ，高度联动；但结构升级 ≠ 快速增长（r = −0.21），追赶与升级是两种互不替代的增长路径。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 方法论 ============ -->
+<section class="colophon" id="colophon">
+    <div class="colophon-head">方法论<br><small style="font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:4px;">methodology & credits</small></div>
+    <div>
+        <h3>Data & Build</h3>
+        <dl>
+            <dt>数据时段</dt><dd>2015 – 2024（年度，10 年）</dd>
+            <dt>数据口径</dt><dd>国家统计局第五次全国经济普查（2023）修订后数据</dd>
+            <dt>覆盖范围</dt><dd>中国大陆 31 省 / 自治区 / 直辖市（港澳台未纳入）</dd>
+            <dt>数据文件</dt><dd><code>data/gdp_2015_2024.csv</code>（长表 310 行）· <code>data/gdp_wide_total.csv</code>（省×年宽表）· <code>data/gdp_national.csv</code>（全国）</dd>
+            <dt>主数据源</dt><dd>国家统计局《2024 年国民经济和社会发展统计公报》及历年分省数据</dd>
+            <dt>地图底图</dt><dd>阿里云 DataV 中国省级 GeoJSON</dd>
+            <dt>绘图工具</dt><dd>Python 3 · pandas · numpy · matplotlib · squarify · （无 geopandas 依赖，地图用 Polygon 手写）</dd>
+            <dt>视觉体系</dt><dd>FT 编辑部风 · 暖橙（#E07B39）= 第三产业 · 雾蓝（#3A6FA0）= 第二产业 · 低饱和绿（#7A8B5E）= 第一产业</dd>
+            <dt>复现方式</dt><dd><code>python3 -m scripts.build_dataset</code> 生成数据 → <code>python3 -m scripts.task&lt;N&gt;_&lt;name&gt;</code> 生成 PNG</dd>
+            <dt>图表数</dt><dd>14 张（4 + 5 + 3 + 2 张 H1/H2 英雄图）</dd>
+        </dl>
+    </div>
+</section>
+
+<footer>
+    <span class="sig">© 2026 · 数据可视化课程期末项目</span>
+    <span>数据来源：国家统计局 · 14 张静态图表 · 单页可直接托管于 GitHub Pages</span>
+</footer>
+
+<script>
+// 滚动进度条
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    progress.style.width = scrolled + '%';
+});
+
+// IntersectionObserver scroll reveal
+const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.05, rootMargin: "0px 0px 80px 0px" });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// 失败兜底：3 秒后强制显示所有 reveal 元素，避免 observer 失效时内容卡在半透明
+setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+}, 3000);
+
+// 顶栏导航激活态
+const sections = ['prologue','task1','task2','task3','coda'].map(id => document.getElementById(id)).filter(Boolean);
+const navLinks = document.querySelectorAll('.topbar nav a');
+const activator = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        }
+    });
+}, { threshold: 0.3, rootMargin: "-68px 0px -50% 0px" });
+sections.forEach(s => activator.observe(s));
+</script>
+</body>
+</html>
