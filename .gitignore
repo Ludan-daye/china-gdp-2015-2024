@@ -6,3 +6,10 @@ __pycache__/
 *.log
 .vscode/
 .idea/
+
+# LaTeX build artifacts
+*.aux
+*.toc
+*.out
+*.synctex.gz
+report/body.tex

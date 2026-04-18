@@ -1,0 +1,146 @@
+% ======================================================================
+% 项目报告 LaTeX 前导码 · XeLaTeX + ctexart · 仅用 TeX Live 2025 Basic 自带包
+% ======================================================================
+
+% ---- 中文字体 ----
+\setCJKmainfont[BoldFont={Songti SC Bold}, ItalicFont={Kaiti SC}]{Songti SC}
+\setCJKsansfont{Heiti SC}
+\setCJKmonofont{Heiti SC}
+
+% ---- 西文字体 ----
+\setmainfont{Times New Roman}
+\setsansfont{Helvetica}       % macOS 系统自带
+\setmonofont[Scale=0.85]{Menlo}
+
+% ---- 页面 ----
+\usepackage[a4paper, margin=2.5cm, headsep=0.7cm, footskip=1cm]{geometry}
+
+% ---- 颜色 ----
+\usepackage{xcolor}
+\definecolor{ftink}{RGB}{27,27,27}
+\definecolor{ftinksoft}{RGB}{58,58,58}
+\definecolor{ftmuted}{RGB}{118,105,90}
+\definecolor{ftrule}{RGB}{200,190,168}
+\definecolor{fttertiary}{RGB}{224,123,57}
+\definecolor{ftsecondary}{RGB}{58,111,160}
+\definecolor{fthighlight}{RGB}{178,50,42}
+\definecolor{codebg}{RGB}{248,244,234}
+\definecolor{codebd}{RGB}{224,123,57}
+\definecolor{shadecolor}{RGB}{248,244,234}
+
+% ---- 链接 ----
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=fttertiary,
+  citecolor=ftsecondary,
+  urlcolor=fttertiary,
+  pdftitle={2015-2024 中国 GDP 与产业结构数据可视化分析},
+  pdfauthor={数据可视化期末项目}
+}
+
+% ---- 段落 ----
+\linespread{1.35}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ---- 章节标题（不用 titlesec，直接 renewcommand）----
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0pt}%
+  {2em}%  before
+  {0.7em}% after
+  {\sffamily\fontsize{19pt}{23pt}\selectfont\bfseries\color{ftink}}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0pt}%
+  {1.4em}%
+  {0.4em}%
+  {\sffamily\fontsize{14pt}{17pt}\selectfont\bfseries\color{ftink}}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0pt}%
+  {1.1em}%
+  {0.35em}%
+  {\sffamily\fontsize{12pt}{15pt}\selectfont\bfseries\color{ftinksoft}}}
+\makeatother
+
+% ---- 页眉页脚 ----
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{ftmuted}工业\,$\rightarrow$\,服务 $\cdot$ 中国经济的十年}
+\fancyhead[R]{\small\sffamily\color{ftmuted}数据可视化期末项目}
+\fancyfoot[C]{\small\sffamily\color{ftmuted}--\ \thepage\ --}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---- 代码块 ----
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\fontsize{8.4pt}{11pt}\selectfont,
+  keywordstyle=\color{ftsecondary}\bfseries,
+  stringstyle=\color{fttertiary},
+  commentstyle=\color{ftmuted}\itshape,
+  numberstyle=\tiny\color{ftmuted},
+  numbers=left,
+  numbersep=8pt,
+  backgroundcolor=\color{codebg},
+  frame=leftline,
+  rulecolor=\color{codebd},
+  framerule=2pt,
+  framesep=7pt,
+  xleftmargin=12pt,
+  xrightmargin=3pt,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b,
+  extendedchars=true,
+  inputencoding=utf8,
+  aboveskip=0.8em,
+  belowskip=0.8em,
+  language=Python,
+}
+
+% ---- 图像 ----
+\usepackage{graphicx}
+\usepackage[font=small,labelfont={bf,color=fttertiary},textfont=it]{caption}
+\usepackage{float}
+
+% ---- 表格 ----
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\renewcommand{\arraystretch}{1.25}
+
+% ---- 列表 ----
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.6em, itemsep=0.15em, topsep=0.2em}
+\setlist[enumerate]{leftmargin=1.8em, itemsep=0.25em, topsep=0.25em}
+
+% ---- 数学 ----
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% ---- pandoc 兼容 ----
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+% Shaded 环境（代码围栏）—— 不用 framed 包，用 mdframed 等又都没装，
+% 直接用 lstlisting 风格的 alltt 或自定义 colorbox
+\newenvironment{Shaded}{\par\noindent\begingroup\color{ftink}\ttfamily\small}{\endgroup\par}
+\newcommand{\KeywordTok}[1]{\textcolor{ftsecondary}{\textbf{#1}}}
+\newcommand{\StringTok}[1]{\textcolor{fttertiary}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor{ftmuted}{\textit{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor{ftsecondary}{#1}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OtherTok}[1]{#1}
+\newcommand{\FunctionTok}[1]{\textbf{#1}}
+\newcommand{\BuiltInTok}[1]{\textbf{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor{ftsecondary}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{#1}
+\newcommand{\FloatTok}[1]{#1}
+\newcommand{\DecValTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor{fttertiary}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor{fttertiary}{#1}}
+\newcommand{\VariableTok}[1]{#1}
+\newcommand{\ConstantTok}[1]{#1}
+\newcommand{\ImportTok}[1]{\textcolor{ftsecondary}{\textbf{#1}}}
+\newcommand{\AttributeTok}[1]{#1}
+\newcommand{\SpecialStringTok}[1]{\textcolor{fttertiary}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor{fttertiary}{#1}}

@@ -1,0 +1,73 @@
+\documentclass[12pt, a4paper]{ctexart}
+\input{preamble.tex}
+
+\begin{document}
+
+% ======================================================================
+% 封面
+% ======================================================================
+\thispagestyle{empty}
+\vspace*{2cm}
+
+{\sffamily\small\color{fthighlight}
+—— 期末项目 $\cdot$ 数据可视化 $\cdot$ 2026\par}
+\vspace{0.3em}
+{\color{fthighlight}\rule{3.2cm}{1.5pt}\par}
+\vspace{1.5cm}
+
+{\fontsize{36pt}{46pt}\selectfont\bfseries\color{ftink}
+从工业驱动\par
+走向\,{\color{fttertiary}服务驱动}\par}
+
+\vspace{0.6em}
+{\color{fttertiary}\rule{7cm}{2pt}\par}
+
+\vspace{1.5cm}
+
+{\fontsize{18pt}{26pt}\selectfont\itshape\color{ftinksoft}
+《2015--2024 中国 GDP 与产业结构数据可视化分析》\par
+\vspace{0.3em}
+—— 项目报告\par}
+
+\vfill
+
+\begin{tabularx}{\textwidth}{@{} >{\sffamily\small\color{ftmuted}} l >{\bfseries\color{ftink}} X @{}}
+\toprule
+时段 & 2015 -- 2024（10 年） \\
+样本 & 31 省 $\cdot$ 全国层面 \\
+叙事主线 & 结构转型 A 线（工业驱动 → 服务驱动） \\
+交付件 & 数据 3 份 $\cdot$ 图 14 张 $\cdot$ HTML 站点 $\cdot$ 报告 $\cdot$ 22 页 PPT \\
+数据来源 & 国家统计局第五次全国经济普查（2023）修订口径 \\
+在线查看 & \href{https://ludan-daye.github.io/china-gdp-2015-2024/}{ludan-daye.github.io/china-gdp-2015-2024} \\
+代码仓库 & \href{https://github.com/Ludan-daye/china-gdp-2015-2024}{github.com/Ludan-daye/china-gdp-2015-2024} \\
+\bottomrule
+\end{tabularx}
+
+\newpage
+
+% ======================================================================
+% 目录
+% ======================================================================
+\pagenumbering{roman}
+\thispagestyle{empty}
+\vspace*{1cm}
+{\sffamily\Large\bfseries\color{ftink}目  录 \textcolor{ftmuted}{\normalsize CONTENTS}}
+\vspace{0.3em}
+
+\color{fttertiary}\rule{\textwidth}{1.2pt}\color{ftink}
+
+\vspace{0.6em}
+\renewcommand{\contentsname}{}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ======================================================================
+% 正文（由 pandoc 转换 report.md 生成）
+% ======================================================================
+\input{body.tex}
+
+\end{document}
